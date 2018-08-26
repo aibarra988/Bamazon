@@ -1,6 +1,6 @@
 const columnify = require('columnify');
-const mysql = require('mysql');
 const inquirer = require('inquirer');
+const mysql = require('mysql');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -22,12 +22,12 @@ const startCustomerFlow = () => {
             {
                 name: 'id',
                 message: 'Welcome to Bamazon! Enter the ID of the item you would like to buy.',
-                // validate: (name) => { return typeof name === 'number'},
+                validate: name => !isNaN(name) 
             },
             {
                 name: 'quantity',
                 message: 'Enter the quantity you would like to buy.',
-                // validate: (name) => { return typeof name === 'number'},
+                validate: name => !isNaN(name) 
             }
         ]).then(answer => {
             const selectedItem = res.find(item => item.id === parseInt(answer.id));

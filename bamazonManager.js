@@ -18,6 +18,16 @@ const viewInventory = () => {
     }); 
 }
 
+const viewLowInventory = () => {
+    connection.query("");
+};
+
+const addToInventory = () => {};
+
+const addNewProduct = () => {};
+
+const quit = () => connection.end();
+
 const showMenu = () => {
     inquirer.prompt([
         {
@@ -53,7 +63,7 @@ const showMenu = () => {
     });
 };
 
-connection.connect((err) => {
+connection.connect(err => {
     if (err) throw err;
     showMenu();
 });
