@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 });
 
 const viewInventory = () => {
-    connection.query("SELECT * FROM products", (err, res) => {
+    connection.query('SELECT * FROM products', (err, res) => {
         if (err) throw err;
         console.log(columnify(res), '\n');
         showMenu();
@@ -19,12 +19,77 @@ const viewInventory = () => {
 }
 
 const viewLowInventory = () => {
-    connection.query("");
+    connection.query('SELECT * FROM products WHERE stock_quantity < 5', (err, res) => {
+        if (err) throw err;
+        console.log(columnify(res), '\n');
+        showMenu();
+    });
 };
 
-const addToInventory = () => {};
+const addToInventory = () => {
+    connection.query('SELECT * FROM products', (err, res) => {
+        console.log(columnify(res));
+        inquirer.prompt([
+            {
+                name: 'id',
+                message: 'Enter the ID of the product you want to restock.',
+                validate: name => !isNaN(name)
+            },
+            {
+                name: 'quantity',
+                message: 'Enter the restocking quantity.',
+                validate: name => !isNaN(name)
+            }
+        ]).then(answer => {
+            const selectedItem = res.find(item => item.id === parseInt(answer.id));
+            connection.query('UPDATE products SET ? WHERE ?', [
+                {
+                    stock_quantity: selectedItem.stock_quantity + parseInt(answer.quantity)
+                },
+                {
+                    id: selectedItem.id
+                }
+            ],
+            (err, res) => {
+                if (err) throw err;
+                console.log('\n', selectedItem.product_name, 'has successfully been restocked with', answer.quantity, 'units.\n');
+                showMenu();
+            });
+        });
 
-const addNewProduct = () => {};
+    })
+};
+
+const addNewProduct = () => {
+    inquirer.prompt([
+        {
+            name: 'product_name',
+            message: 'What is the name of the new product?'
+        },
+        {
+            name: 'department_name',
+            message: 'What department does this product belong to?'
+        },
+        {
+            name: 'price',
+            message: 'What is the price of this product?',
+            validate: name => !isNaN(name)
+        },
+        {
+            name: 'stock_quantity',
+            message: 'How many units are in stock for this product?',
+            validate: name => !isNaN(name)
+        },
+    ]).then(answer => {
+        connection.query('INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)',
+        [answer.product_name, answer.department_name, parseFloat(answer.price), parseInt(answer.stock_quantity)],
+        (err, res) => {
+            if (err) throw err;
+            console.log('\n', answer.product_name, 'has been successfully added!');
+            showMenu();
+        });
+    });
+};
 
 const quit = () => connection.end();
 
@@ -33,30 +98,30 @@ const showMenu = () => {
         {
             name: 'action',
             type: 'list',
-            message: "Welcome to Bamazon Manager! Please enter a choice number!",
+            message: 'Welcome to Bamazon Manager! Please select your choice!',
             choices: [
-                "View Inventory",
-                "View Low Inventory",
-                "Add to Inventory",
-                "Add New Product",
-                "Quit"
+                'View Inventory',
+                'View Low Inventory',
+                'Add to Inventory',
+                'Add New Product',
+                'Quit'
             ]
         }
     ]).then(answer => {
         switch(answer.action) {
-            case "View Inventory":
+            case 'View Inventory':
                 viewInventory();
                 break;
-            case "View Low Inventory":
+            case 'View Low Inventory':
                 viewLowInventory();
                 break;
-            case "Add to Inventory":
+            case 'Add to Inventory':
                 addToInventory();
                 break;
-            case "Add New Product":
+            case 'Add New Product':
                 addNewProduct();
                 break;
-            case "Quit":
+            case 'Quit':
                 quit();
                 break;
         }

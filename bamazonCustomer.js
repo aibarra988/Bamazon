@@ -36,7 +36,7 @@ const startCustomerFlow = () => {
                 connection.query("UPDATE products SET ? WHERE ? ",
                     [
                         {
-                            stock_quantity: selectedItem.stock_quantity - 1
+                            stock_quantity: selectedItem.stock_quantity - parseInt(answer.quantity)
                         },
                         {
                             id: answer.id
