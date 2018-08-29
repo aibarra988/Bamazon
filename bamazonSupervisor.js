@@ -31,7 +31,7 @@ const createDepartment = () => {
         }
     ]).then(answer => {
         connection.query('INSERT INTO departments (department_name, overhead_costs) VALUES (?, ?)',
-        [answer.department, answer.overhead_costs], (err, res) => {
+        [answer.department, parseInt(answer.overhead_costs)], (err, res) => {
             if (err) throw err;
             console.log('\nDepartment successfully added!\n');
             startSupervisorFlow();
