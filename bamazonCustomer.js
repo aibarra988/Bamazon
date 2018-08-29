@@ -15,17 +15,17 @@ const startCustomerFlow = () => {
     connection.query("SELECT * FROM products", (err, res) => {
         if (err) throw err;
         
-        console.log(columnify(res));
+        console.log('\n', columnify(res), '\n');
 
         inquirer.prompt([
             {
                 name: 'id',
-                message: 'Welcome to Bamazon! Enter the ID of the item you would like to buy.',
+                message: '\nWelcome to Bamazon! Enter the ID of the item you would like to buy.\n',
                 validate: name => !isNaN(name) 
             },
             {
                 name: 'quantity',
-                message: 'Enter the quantity you would like to buy.',
+                message: '\nEnter the quantity you would like to buy.\n',
                 validate: name => !isNaN(name) 
             }
         ]).then(answer => {

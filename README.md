@@ -5,7 +5,7 @@ A CLI based store front and management written in Node.js and MySQL.
 
 ## Installation
 
-1. Run schema.sql on while connected to a MySQL Server to load the data that we will be working with.
+1. Run bamazon.sql on while connected to a MySQL Server to load the data that we will be working with.
 
 2. Install dependencies
 ```
