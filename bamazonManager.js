@@ -32,12 +32,12 @@ const addToInventory = () => {
         inquirer.prompt([
             {
                 name: 'id',
-                message: 'Enter the ID of the product you want to restock.',
+                message: 'Enter the ID of the product you want to restock.\n',
                 validate: name => !isNaN(name)
             },
             {
                 name: 'quantity',
-                message: 'Enter the restocking quantity.',
+                message: '\nEnter the restocking quantity.\n',
                 validate: name => !isNaN(name)
             }
         ]).then(answer => {
@@ -64,20 +64,20 @@ const addNewProduct = () => {
     inquirer.prompt([
         {
             name: 'product_name',
-            message: 'What is the name of the new product?'
+            message: 'What is the name of the new product?\n'
         },
         {
             name: 'department_name',
-            message: 'What department does this product belong to?'
+            message: '\nWhat department does this product belong to?\n'
         },
         {
             name: 'price',
-            message: 'What is the price of this product?',
+            message: '\nWhat is the price of this product?\n',
             validate: name => !isNaN(name)
         },
         {
             name: 'stock_quantity',
-            message: 'How many units are in stock for this product?',
+            message: '\nHow many units are in stock for this product\n?',
             validate: name => !isNaN(name)
         },
     ]).then(answer => {
@@ -85,7 +85,7 @@ const addNewProduct = () => {
         [answer.product_name, answer.department_name, parseFloat(answer.price), parseInt(answer.stock_quantity)],
         (err, res) => {
             if (err) throw err;
-            console.log('\n', answer.product_name, 'has been successfully added!');
+            console.log('\n', answer.product_name, 'has been successfully added!\n');
             showMenu();
         });
     });

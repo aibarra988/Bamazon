@@ -20,3 +20,20 @@ VALUES ("Rocket League", "Video Games", 19.99, 1000),
 
 SELECT * FROM products;
 
+CREATE TABLE departments (
+ department_id INTEGER AUTO_INCREMENT NOT NULL,
+ department_name VARCHAR(100) NOT NULL,
+ overhead_costs DECIMAL(10, 2) NOT NULL,
+ total_sales INTEGER(10) DEFAULT 0,
+ PRIMARY KEY(department_id)
+);
+
+
+ALTER TABLE products ADD COLUMN
+product_sales INTEGER(20) DEFAULT 0;
+
+INSERT INTO departments (department_name, overhead_costs)
+VALUES ("Video Games", 1000),
+	   ("Music Instruments", 250),
+	   ("Pharmacy", 100),
+	   ("Outdoors/Bicycles", 2000);
