@@ -18,8 +18,6 @@ VALUES ("Rocket League", "Video Games", 19.99, 1000),
 		 ("Cannondale CAADX 105 SE Bike - 2018", "Outdoors/Bicycles", 1199.19, 20),
 		 ("Aloe Vera Lotion", "Pharmacy", 6.99, 500);
 
-SELECT * FROM products;
-
 CREATE TABLE departments (
  department_id INTEGER AUTO_INCREMENT NOT NULL,
  department_name VARCHAR(100) NOT NULL,
