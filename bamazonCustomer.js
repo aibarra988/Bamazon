@@ -14,18 +14,18 @@ const startCustomerFlow = () => {
 
     connection.query("SELECT * FROM products", (err, res) => {
         if (err) throw err;
-        
+        res.filter()
         console.log('\n' + columnify(res), '\n');
 
         inquirer.prompt([
             {
                 name: 'id',
-                message: '\nWelcome to Bamazon! Enter the ID of the item you would like to buy.\n',
+                message: 'Welcome to Bamazon! Enter the ID of the item you would like to buy.\n',
                 validate: name => !isNaN(name) 
             },
             {
                 name: 'quantity',
-                message: '\nEnter the quantity you would like to buy.\n',
+                message: 'Enter the quantity you would like to buy.\n',
                 validate: name => !isNaN(name) 
             }
         ]).then(answer => {
@@ -35,7 +35,8 @@ const startCustomerFlow = () => {
                 connection.query("UPDATE products SET ? WHERE ? ",
                     [
                         {
-                            stock_quantity: selectedItem.stock_quantity - parseInt(answer.quantity)
+                            stock_quantity: selectedItem.stock_quantity - parseInt(answer.quantity),
+                            product_sales: selectedItem.product_sales + (selectedItem.price * parseInt(answer.quantity))
                         },
                         {
                             id: answer.id

@@ -28,7 +28,7 @@ CREATE TABLE departments (
 
 
 ALTER TABLE products ADD COLUMN
-product_sales INTEGER(20) DEFAULT 0;
+product_sales DECIMAL(10, 2) DEFAULT 0;
 
 INSERT INTO departments (department_name, overhead_costs)
 VALUES ("Video Games", 1000),
