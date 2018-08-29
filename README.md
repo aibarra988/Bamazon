@@ -1,5 +1,5 @@
 # Bamazon
-A CLI based store front written in Node.js and MySQL.
+A CLI based store front and management written in Node.js and MySQL.
 
 ---
 
