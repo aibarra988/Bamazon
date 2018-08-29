@@ -43,7 +43,7 @@ const startCustomerFlow = () => {
                     ],
                     (err, res) => {
                         if (err) throw err;
-                        console.log('\nThank you for your purchase! Your total is', selectedItem.price, '\n');
+                        console.log(`\nThank you for your purchase! Your total is \$${selectedItem.price * answer.quantity} \n`);
                         startCustomerFlow();
                     });
             } else {
