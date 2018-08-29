@@ -14,7 +14,6 @@ const startCustomerFlow = () => {
 
     connection.query("SELECT * FROM products", (err, res) => {
         if (err) throw err;
-        res.filter()
         console.log('\n' + columnify(res), '\n');
 
         inquirer.prompt([
