@@ -31,7 +31,7 @@ const startCustomerFlow = () => {
         ]).then(answer => {
             const selectedItem = res.find(item => item.id === parseInt(answer.id));
 
-            if (selectedItem.stock_quantity - parseInt(answer.quantity) > 0) {
+            if (selectedItem.stock_quantity - parseInt(answer.quantity) >= 0) {
                 connection.query("UPDATE products SET ? WHERE ? ",
                     [
                         {
